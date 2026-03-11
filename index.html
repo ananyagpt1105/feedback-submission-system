@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Feedback Submission System</title>
+</head>
+<body>
+
+  <center>
+    <h2>Feedback Submission System</h2>
+
+    <form id="feedbackForm">
+
+      <textarea id="feedbackBox" rows="6" cols="50" maxlength="500"
+        placeholder="Enter your feedback here..."></textarea>
+      <br><br>
+
+      <div id="charCount">500 characters remaining</div>
+      <br>
+
+      <div id="errorMsg"></div>
+      <br>
+
+      <input type="submit" value="Submit" />
+      <button type="button" onclick="clearFeedback()">Clear</button>
+
+    </form>
+
+    <br><br>
+    <h4>Created By: Ananya Gupta, 24BCT0027</h4>
+
+  </center>
+
+  <script>
+
+    var textarea = document.getElementById("feedbackBox");
+    var textarea2 = document.querySelector("#feedbackBox");
+
+    console.log(textarea.value);
+    console.log(textarea.rows);
+    console.log(textarea.cols);
+    console.log(textarea.maxLength);
+    console.log(textarea.placeholder);
+
+    textarea.value = "";
+    textarea.rows = 6;
+    textarea.cols = 50;
+    textarea.maxLength = 500;
+    textarea.placeholder = "Enter your feedback here...";
+
+    textarea.addEventListener("input", function() {
+
+      var remaining = 500 - textarea.value.length;
+      document.getElementById("charCount").textContent = remaining + " characters remaining";
+
+      if (textarea.value.length <= 350) {
+        document.getElementById("charCount").style.color = "green";
+      } else if (textarea.value.length <= 450) {
+        document.getElementById("charCount").style.color = "orange";
+      } else {
+        document.getElementById("charCount").style.color = "red";
+      }
+
+      textarea.style.height = "auto";
+      textarea.style.height = textarea.scrollHeight + "px";
+      textarea.style.overflow = "hidden";
+
+    });
+
+    document.getElementById("feedbackForm").addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+      if (textarea.value.trim() == "") {
+        document.getElementById("errorMsg").textContent = "Feedback cannot be empty!";
+        document.getElementById("errorMsg").style.color = "red";
+        return;
+      }
+
+      if (textarea.value.trim().length < 20) {
+        document.getElementById("errorMsg").textContent = "Feedback must be at least 20 characters!";
+        document.getElementById("errorMsg").style.color = "red";
+        return;
+      }
+
+      document.getElementById("errorMsg").textContent = "Feedback submitted successfully!";
+      document.getElementById("errorMsg").style.color = "green";
+
+    });
+
+    function clearFeedback() {
+      textarea.value = "";
+      document.getElementById("charCount").textContent = "500 characters remaining";
+      document.getElementById("charCount").style.color = "black";
+      document.getElementById("errorMsg").textContent = "";
+      textarea.focus();
+    }
+
+  </script>
+
+</body>
+</html>
+
+
